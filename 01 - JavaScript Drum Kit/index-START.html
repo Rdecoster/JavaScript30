@@ -58,20 +58,44 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
-// add event listener for the key press
-window.addEventListener('keydown',function(e){
 
+function playsound(e){
   // using query selector to to find the element that matches the type.
-  const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`)
-  console.log(e.keyCode)
-  console.log(audio)
-  if(!audio) return; //stops the from playing if no audo element
-  // play audio element
 
+  console.log(e)
+  const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`)
+
+// mapping out div elements that are mapped to the keys buttons.
+  const button = document.querySelector(`.key[data-key="${e.keyCode}"`)
+
+  if(!audio ) return; //stops the from playing if no audo element
+  // play audio element
   audio.play()  // audio element dos not play.
   audio.currentTime = 0; //rewinds to start
-});
+  // once play we need to do trasition so add class
+  button.classList.add('playing');
+  console.log(e)
+};
 
+
+
+// make a function the de-hightlights after the button is press we can add another event listener for when transition ends so after it grows.
+function removeTransition(e){
+  if (e.propertyName !== 'transform') return; // skips if not a transform.. look at css for the class .playing
+ this.classList.remove('playing')  // removes class playing from element
+}
+
+const keys = document.querySelectorAll('.key') // grabs all elements with the class 'key' returns an array.
+
+// add eventlistener to each key
+
+keys.forEach( key => key.addEventListener('transitionend', removeTransition))
+keys.forEach (key => key.addEventListener('onclick', playsound))
+console.log(keys)
+
+// add event listener for the key press
+window.addEventListener('keydown', playsound)
+window.addEventListener('onclick', playsound)
 </script>
 
 
