@@ -58,6 +58,19 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+// add event listener for the key press
+window.addEventListener('keydown',function(e){
+
+  // using query selector to to find the element that matches the type.
+  const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`)
+  console.log(e.keyCode)
+  console.log(audio)
+  if(!audio) return; //stops the from playing if no audo element
+  // play audio element
+
+  audio.play()  // audio element dos not play.
+  audio.currentTime = 0; //rewinds to start
+});
 
 </script>
 
